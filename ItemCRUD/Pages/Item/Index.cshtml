@@ -1,0 +1,151 @@
+﻿@page
+@model ItemCRUD.Pages.Item.IndexModel
+
+@{
+    ViewData["Title"] = "Items";
+}
+
+<h1>All Items</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Create New</a>
+</p>
+<form asp-page="./Index" method="get">
+    <div class="form-action no-color">
+        <p>
+            Find by Name:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter"></input>
+            <input type="submit" value="Search" class="btn btn-primary"></input>
+            <a asp-page="./Index">Back to full list</a>
+        </p>
+
+    </div>
+
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemClient[0].Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemClient[0].Type)
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                </a>
+                @Html.DisplayNameFor(model => model.ItemClient[0].DisplayName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemClient[0].Department)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemClient[0].HSN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemClient[0].BuyingUnit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemClient[0].BuyingUnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemClient[0].SellingUnit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemClient[0].SellingUnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemClient[0].CGST)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemClient[0].SGST)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemClient[0].IGST)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.ItemClient != null && Model.ItemClient.Any())
+        {
+            @foreach (var item in Model.ItemClient)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Code)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DisplayName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Department)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HSN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BuyingUnit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BuyingUnitPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SellingUnit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SellingUnitPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CGST)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SGST)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IGST)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+
+        }
+        else
+        {
+            <tr>
+                <td colspan="12" class="text-center">
+                    Items not available in DB
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.Items.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Items.HasNextPage ? "disabled" : "";
+}
+
+<a asp-page="./Index"
+asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Items.PageIndex - 1)"
+asp-route-currentFilter="@Model.CurrentFilter"
+class="btn btn-primary @prevDisabled">
+Previous
+></a>
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Items.PageIndex + 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @nextDisabled">
+    Next
+    >
+</a>
