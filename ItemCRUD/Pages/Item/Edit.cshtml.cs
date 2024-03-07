@@ -6,36 +6,39 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ItemCRUD.Core.Entities;
 using ItemCRUD.DAL;
-using ItemCRUD.Models;
+using ItemCRUD.Core.Services;
 
-namespace ItemCRUD.Pages.ItemPage
+namespace ItemCRUD.Pages.Item
 {
     public class EditModel : PageModel
     {
         private readonly ItemCRUD.DAL.AppDbContext _context;
-
-        public EditModel(ItemCRUD.DAL.AppDbContext context)
+        protected readonly ItemService _itemService;
+        public EditModel(ItemCRUD.DAL.AppDbContext context, ItemService itemService)
         {
             _context = context;
+            _itemService = itemService;
         }
 
         [BindProperty]
-        public Item Item { get; set; } = default!;
+        public ItemClient ItemClient { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
-            if (id == null || _context.Items == null)
+            if (id == null || _context.ItemClient == null)
             {
                 return NotFound();
             }
 
-            var item =  await _context.Items.FirstOrDefaultAsync(m => m.Id == id);
-            if (item == null)
+            var itemDB =  await _context.Items.Include(x => x.Tax).FirstOrDefaultAsync(m => m.Id == id);
+            if (itemDB == null)
             {
                 return NotFound();
             }
-            Item = item;
+            
+            ItemClient = _itemService.CastToItemsClient(itemDB);
             return Page();
         }
 
@@ -47,8 +50,8 @@ namespace ItemCRUD.Pages.ItemPage
             {
                 return Page();
             }
-
-            _context.Attach(Item).State = EntityState.Modified;
+            var itemDB = _itemService.CastToItemDB(ItemClient);
+            _context.Attach(itemDB).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +59,7 @@ namespace ItemCRUD.Pages.ItemPage
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ItemExists(Item.Id))
+                if (!ItemClientExists(ItemClient.Id))
                 {
                     return NotFound();
                 }
@@ -69,7 +72,7 @@ namespace ItemCRUD.Pages.ItemPage
             return RedirectToPage("./Index");
         }
 
-        private bool ItemExists(Guid id)
+        private bool ItemClientExists(Guid id)
         {
           return (_context.Items?.Any(e => e.Id == id)).GetValueOrDefault();
         }

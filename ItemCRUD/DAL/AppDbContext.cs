@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ItemCRUD.Models;
+using ItemCRUD.Core.Entities;
 namespace ItemCRUD.DAL
 {
     public class AppDbContext : DbContext
@@ -14,5 +15,6 @@ namespace ItemCRUD.DAL
         public AppDbContext()
         {
         }
+        public DbSet<ItemCRUD.Core.Entities.ItemClient> ItemClient { get; set; } = default!;
     }
 }

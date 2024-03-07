@@ -26,6 +26,7 @@ namespace ItemCRUD.Models
         public double? SellingUnitPrice { get; set; }
         [ForeignKey(nameof(Tax))]
         public int? TaxId { get; set; }
+        public Tax? Tax { get; set; }
 
     }
 }

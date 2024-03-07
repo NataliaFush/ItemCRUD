@@ -5,21 +5,24 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using ItemCRUD.Core.Entities;
 using ItemCRUD.DAL;
-using ItemCRUD.Models;
+using ItemCRUD.Core.Services;
 
-namespace ItemCRUD.Pages.ItemPage
+namespace ItemCRUD.Pages.Item
 {
     public class DetailsModel : PageModel
     {
         private readonly ItemCRUD.DAL.AppDbContext _context;
-
-        public DetailsModel(ItemCRUD.DAL.AppDbContext context)
+        protected readonly ItemService _itemService;
+        public DetailsModel(ItemCRUD.DAL.AppDbContext context, ItemService itemService)
         {
             _context = context;
+            _itemService = itemService;
+            ItemClient = new ItemClient();
         }
 
-      public Item Item { get; set; } = default!; 
+        public ItemClient ItemClient { get; set; } 
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -28,14 +31,14 @@ namespace ItemCRUD.Pages.ItemPage
                 return NotFound();
             }
 
-            var item = await _context.Items.FirstOrDefaultAsync(m => m.Id == id);
-            if (item == null)
+            var itemDB = await _context.Items.Include(x => x.Tax).FirstOrDefaultAsync(m => m.Id == id);
+            if (itemDB == null)
             {
                 return NotFound();
             }
             else 
             {
-                Item = item;
+                ItemClient = _itemService.CastToItemsClient(itemDB);
             }
             return Page();
         }

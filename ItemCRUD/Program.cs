@@ -1,3 +1,5 @@
+using ItemCRUD.Core.Interfaces;
+using ItemCRUD.Core.Services;
 using ItemCRUD.DAL;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +15,7 @@ namespace ItemCRUD
             builder.Services.AddRazorPages();
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("RazorPagesConnection") ?? throw new InvalidOperationException("Connection string 'RazorPagesContext' not found.")));
+            builder.Services.AddScoped<ItemService>();
 
             var app = builder.Build();
 

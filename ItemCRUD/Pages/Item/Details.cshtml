@@ -1,0 +1,91 @@
+﻿@page
+@model ItemCRUD.Pages.Item.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>ItemClient</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemClient.Code)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemClient.Code)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemClient.Type)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemClient.Type)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemClient.DisplayName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemClient.DisplayName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemClient.Department)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemClient.Department)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemClient.HSN)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemClient.HSN)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemClient.BuyingUnit)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemClient.BuyingUnit)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemClient.BuyingUnitPrice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemClient.BuyingUnitPrice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemClient.SellingUnit)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemClient.SellingUnit)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemClient.SellingUnitPrice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemClient.SellingUnitPrice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemClient.CGST)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemClient.CGST)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemClient.SGST)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemClient.SGST)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemClient.IGST)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemClient.IGST)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.ItemClient?.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
