@@ -10,6 +10,18 @@
 <p>
     <a asp-page="Create" class="btn btn-primary">Create New</a>
 </p>
+<form asp-page="./Index" method="get">
+    <div class="form-action no-color">
+        <p>
+            Find by Name:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter"></input>
+            <input type="submit" value="Search" class="btn btn-primary"></input>
+            <a asp-page="./Index">Back to full list</a>
+        </p>
+
+    </div>
+
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -20,6 +32,9 @@
                 @Html.DisplayNameFor(model => model.ItemClient[0].Type)
             </th>
             <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                </a>
                 @Html.DisplayNameFor(model => model.ItemClient[0].DisplayName)
             </th>
             <th>
@@ -113,3 +128,24 @@
         }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.Items.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Items.HasNextPage ? "disabled" : "";
+}
+
+<a asp-page="./Index"
+asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Items.PageIndex - 1)"
+asp-route-currentFilter="@Model.CurrentFilter"
+class="btn btn-primary @prevDisabled">
+Previous
+></a>
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Items.PageIndex + 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @nextDisabled">
+    Next
+    >
+</a>

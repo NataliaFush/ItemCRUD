@@ -1,5 +1,6 @@
 ﻿using ItemCRUD.Core.Enums;
 using ItemCRUD.Models;
+using ItemCRUD.Pages;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
@@ -38,5 +39,6 @@ namespace ItemCRUD.Core.Entities
         public double? SGST { get; set; }
         [Display(Name = "IGST", Prompt = "IGST")]
         public double? IGST { get; set; }
+      
     }
 }
