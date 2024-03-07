@@ -1,0 +1,96 @@
+﻿@page
+@model ItemCRUD.Pages.ItemPage.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Items</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Item[0].Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item[0].Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item[0].DisplayName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item[0].Department)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item[0].HSN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item[0].BuyingUnit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item[0].BuyingUnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item[0].SellingUnit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item[0].SellingUnitPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Item != null && Model.Item.Any())
+        {
+            @foreach (var item in Model.Item)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Code)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DisplayName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Department)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HSN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BuyingUnit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BuyingUnitPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SellingUnit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SellingUnitPrice)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center">
+                    Items not available in the database. 
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

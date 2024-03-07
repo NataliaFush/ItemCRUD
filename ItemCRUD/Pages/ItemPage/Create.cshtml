@@ -1,0 +1,84 @@
+﻿@page
+@model ItemCRUD.Pages.ItemPage.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Item</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Item.Code" class="control-label"></label>
+                <input asp-for="Item.Code" class="form-control" readonly>
+                <span asp-validation-for="Item.Code" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.Type" class="control-label"></label>
+                <select asp-for="Item.Type" asp-items="Html.GetEnumSelectList<Core.Enums.ItemType>()" class="form-control">
+                    <option value="">Select Type</option>
+                </select>
+                <span asp-validation-for="Item.Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.DisplayName" class="control-label"></label>
+                <input asp-for="Item.DisplayName" class="form-control" />
+                <span asp-validation-for="Item.DisplayName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.Department" class="control-label"></label>
+                <select asp-for="Item.Department" asp-items="Html.GetEnumSelectList<Core.Enums.ItemDepartment>()" class="form-control">
+                    <option value="">Select Department</option>
+                </select>
+                <span asp-validation-for="Item.Department" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.HSN" class="control-label"></label>
+                <input asp-for="Item.HSN" class="form-control" />
+                <span asp-validation-for="Item.HSN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.BuyingUnit" class="control-label"></label>
+                <select asp-for="Item.BuyingUnit" asp-items="Html.GetEnumSelectList<Core.Enums.SmallestUnit>()" class="form-control">
+                    <option value="">Select Buying Unit</option>
+                </select>
+                <span asp-validation-for="Item.BuyingUnit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.BuyingUnitPrice" class="control-label"></label>
+                <input asp-for="Item.BuyingUnitPrice" class="form-control" />
+                <span asp-validation-for="Item.BuyingUnitPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.SellingUnit" class="control-label"></label>
+                <select asp-for="Item.SellingUnit" asp-items="Html.GetEnumSelectList<Core.Enums.SmallestUnit>()" class="form-control">
+                    <option value="">Select Selling Unit</option>
+                </select>
+                <span asp-validation-for="Item.SellingUnit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.SellingUnitPrice" class="control-label"></label>
+                <input asp-for="Item.SellingUnitPrice" class="form-control" />
+                <span asp-validation-for="Item.SellingUnitPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
